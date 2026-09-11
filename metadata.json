@@ -1,0 +1,7 @@
+{
+  "name": "RaktSetu",
+  "description": "Blood donation and emergency network connected with Google Maps to locate nearby blood banks, urgent hospital requests, and donation drives.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">RaktSetu</string>
+    <string name="tagline">Connecting Donors, Saving Lives</string>
+    <string name="urgent_call">URGENT CALL</string>
+    <string name="donate_now">Donate Now</string>
+    <string name="active_donors">Active Donors</string>
+    <string name="requests_met">Requests Met</string>
+    <string name="quick_actions">Quick Actions</string>
+    <string name="schedule_donation">Schedule Donation</string>
+    <string name="schedule_donation_desc">Find nearby blood banks &amp; drives</string>
+    <string name="eligibility_check">Eligibility Check</string>
+    <string name="eligibility_check_desc">Verify if you can donate today</string>
+    <string name="request_blood">Request Blood</string>
+    <string name="request_blood_desc">Create an emergency SOS broadcast</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_map">Google Map</string>
+    <string name="nav_sos">Emergency SOS</string>
+    <string name="nav_profile">Profile</string>
+    <string name="get_directions">Get Directions</string>
+    <string name="open_in_google_maps">Open in Google Maps</string>
+    <string name="call_center">Call Center</string>
+</resources>
