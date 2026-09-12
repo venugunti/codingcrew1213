@@ -35,6 +35,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,11 +45,13 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.data.local.LocalBloodRepository
 import com.example.ui.theme.AvailableGreen
 import com.example.ui.theme.CrimsonRed
 import com.example.ui.theme.DarkCrimson
 import com.example.ui.theme.DeepNavy
 import com.example.util.MapsHelper
+import kotlinx.coroutines.launch
 
 @Composable
 fun EmergencySosDialog(
@@ -57,6 +60,8 @@ fun EmergencySosDialog(
   onOpenMap: () -> Unit
 ) {
   val context = LocalContext.current
+  val localRepo = remember { LocalBloodRepository(context) }
+  val coroutineScope = rememberCoroutineScope()
   val bloodGroups = listOf("O-", "O+", "A+", "A-", "B+", "B-", "AB+", "AB-")
 
   var selectedGroup by remember { mutableStateOf("O-") }
@@ -244,6 +249,14 @@ fun EmergencySosDialog(
       Button(
         onClick = {
           isBroadcastSent = true
+          coroutineScope.launch {
+            localRepo.addEmergencyRequest(
+              hospitalName = hospitalName.ifBlank { "Emergency Facility" },
+              bloodGroup = selectedGroup,
+              unitsNeeded = unitsNeeded.toIntOrNull() ?: 2,
+              contactPhone = contactPhone
+            )
+          }
           onBroadcastSuccess(selectedGroup, hospitalName)
         },
         colors = ButtonDefaults.buttonColors(containerColor = CrimsonRed),

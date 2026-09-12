@@ -38,6 +38,7 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -53,6 +54,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.data.BloodRepository
+import com.example.data.local.LocalBloodRepository
 import com.example.model.UrgentEmergency
 import com.example.ui.eligibility.EligibilityDialog
 import com.example.ui.sos.EmergencySosDialog
@@ -71,6 +73,9 @@ fun HomeScreen(
   onNotificationClick: () -> Unit = {}
 ) {
   val context = LocalContext.current
+  val localRepo = remember { LocalBloodRepository(context) }
+  val urgentEmergencies by localRepo.emergenciesFlow.collectAsState(initial = BloodRepository.urgentEmergencies)
+
   var showEligibilityDialog by remember { mutableStateOf(false) }
   var showSosDialog by remember { mutableStateOf(false) }
   var showQuickPledgeNotice by remember { mutableStateOf(false) }
@@ -381,7 +386,7 @@ fun HomeScreen(
           )
         }
 
-        BloodRepository.urgentEmergencies.forEach { emergency ->
+        urgentEmergencies.forEach { emergency ->
           HospitalRequestRow(
             emergency = emergency,
             onDirectionsClick = {
